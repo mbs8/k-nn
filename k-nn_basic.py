@@ -34,14 +34,11 @@ class Instance:
         classFalse = 0
 
         for i in range(0, numNeighbor):
-            print(self.distancesToInstances[i][1].classification)
             if self.distancesToInstances[i][1].classification == 'true' or self.distancesToInstances[i][1].classification == 'yes':
                 classTrue  += 1
             else:
                 classFalse += 1
 
-        print("True: " + str(classTrue) + "       False: " + str(classFalse))
-        print(self.classification)
         if (((classTrue < classFalse) and (self.classification == 'false' or self.classification == 'no'))):
             return True
         return False
@@ -107,7 +104,6 @@ def crossFold(dataSet, k, foldSize):
                 testInstance.insertDistance((testInstance.euclideanDistance(trainInstance, minArg, maxArg)), trainInstance)
                 if (testInstance.distancesToInstances[0] == 0):
                     break
-            print("result: " + str(testInstance.classifyInstance(k)))
         # 
                 
 
