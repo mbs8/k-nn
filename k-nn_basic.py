@@ -1,14 +1,15 @@
-import bisect
 import csv
 import math
 import time
+
+
 
 class Instance:
     def __init__(self, id, params, classification):
         self.id = id
         self.params = params
         self.classification = classification
-        self.distances = []
+        self.distancesToInstances = []
 
     def euclideanDistance(self, datasetInstance, minArg, maxArg):
         distance = 0
@@ -17,8 +18,36 @@ class Instance:
         distance = math.sqrt(distance)       
         return distance
     
-    def insertDistance(self, distance): 
-        bisect.insort(self.distances, distance)
+    def insertDistance(self, distanceToInstance, instance): 
+        distInst = (distanceToInstance, instance)
+        if self.distancesToInstances == []:
+            self.distancesToInstances.append(distInst)
+        else:
+            for i, (dist, _) in enumerate(self.distancesToInstances):
+                if dist > distanceToInstance:
+                    self.distancesToInstances.insert(i, distInst)
+                    return
+            self.distancesToInstances.append(distInst)
+    
+    def classifyInstance(self, numNeighbor):
+        classTrue = 0 
+        classFalse = 0
+
+        for i in range(0, numNeighbor):
+            print(self.distancesToInstances[i][1].classification)
+            if self.distancesToInstances[i][1].classification == 'true' or self.distancesToInstances[i][1].classification == 'yes':
+                classTrue  += 1
+            else:
+                classFalse += 1
+
+        print("True: " + str(classTrue) + "       False: " + str(classFalse))
+        print(self.classification)
+        if (((classTrue < classFalse) and (self.classification == 'false' or self.classification == 'no'))):
+            return True
+        return False
+
+                     
+
 
 # atualiza o array de minimo e maximo de cada um dos parametros
 def updateMinMax(row, minArg, maxArg):
@@ -72,16 +101,23 @@ def crossFold(dataSet, k, foldSize):
         trainingSet = tests[ : (div-1)*foldSize] + tests[div*foldSize : len(tests)-1] 
         div += 1
 
-        # calcula todas as distancias para i-esima instancia do conjunto de teste
+        # calcula todas as distancias para i-esima instancia do conjunto de teste e classifica de acordo com os k vizinhos mais proximos
         for testInstance in testingSet:
             for trainInstance in trainingSet:
-                testInstance.insertDistance(testInstance.euclideanDistance(trainInstance, minArg, maxArg))
+                testInstance.insertDistance((testInstance.euclideanDistance(trainInstance, minArg, maxArg)), trainInstance)
+                if (testInstance.distancesToInstances[0] == 0):
+                    break
+            print("result: " + str(testInstance.classifyInstance(k)))
+        # 
+                
 
 def main(): 
-    kValues = [1]
+    kValues = [1, 3]
     # kValues = [1,3,5,7,9,11,13,15]  # vetor dos valores de k
+    # dataSets = ["./Datasets/CM1_software_defect_prediction.csv", "./Datasets/KC2_software_defect_prediction.csv"]
+    dataSets = ["./Datasets/new.csv"]
     foldSize = 10
-    dataSets = ["./Datasets/CM1_software_defect_prediction.csv", "./Datasets/KC2_software_defect_prediction.csv"]
+    
 
     for i, dataSet in enumerate(dataSets):
         print("DataSet " + str(i+1) + ":\n")
