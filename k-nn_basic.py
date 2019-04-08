@@ -29,7 +29,8 @@ class Instance:
                     return
             self.distancesToInstances.append(distInst)
     
-    def classifyInstance(self, numNeighbor):
+    # testa se a instancia foi classificada corretamente
+    def classify(self, numNeighbor):
         classTrue = 0 
         classFalse = 0
 
@@ -39,7 +40,9 @@ class Instance:
             else:
                 classFalse += 1
 
-        if (((classTrue < classFalse) and (self.classification == 'false' or self.classification == 'no'))):
+        if ((classTrue < classFalse) and (self.classification == 'false' or self.classification == 'no')):
+            return True
+        if ((classTrue > classFalse) and (self.classification == 'true' or self.classification == 'yes')):
             return True
         return False
 
@@ -89,7 +92,9 @@ def crossFold(dataSet, k, foldSize):
     tests  = []                     # array contendo todas as instancias no banco de dados
     maxArg = []                     # array contendo o maximo de cada parametro
     minArg = []                     # array contendo o minimo de cada parametro
-    div = 1
+    hit    = 0                      # numero de acertos em cada teste de crossfold
+    accuracy = 0
+    div = 1                             
 
     params, tests, minArg, maxArg = readCsv(dataSet)
 
@@ -104,15 +109,24 @@ def crossFold(dataSet, k, foldSize):
                 testInstance.insertDistance((testInstance.euclideanDistance(trainInstance, minArg, maxArg)), trainInstance)
                 if (testInstance.distancesToInstances[0] == 0):
                     break
-        # 
+            if testInstance.classify(k):
+                hit += 1
+        
+        accuracy += (hit/len(testingSet))
+        hit = 0
+    
+    print("Accuracy: %.2f%%\n" % ((accuracy/div) * 100))
+        
+                
+
                 
 
 def main(): 
-    kValues = [1, 3]
-    # kValues = [1,3,5,7,9,11,13,15]  # vetor dos valores de k
-    # dataSets = ["./Datasets/CM1_software_defect_prediction.csv", "./Datasets/KC2_software_defect_prediction.csv"]
-    dataSets = ["./Datasets/new.csv"]
+    kValues = [1,3,5,7,9,11,13,15]  # vetor dos valores de k
+    dataSets = ["./Datasets/CM1_software_defect_prediction.csv", "./Datasets/KC2_software_defect_prediction.csv"]
     foldSize = 10
+    totalTime = 0
+    timePerDataSet = 0
     
 
     for i, dataSet in enumerate(dataSets):
@@ -122,8 +136,16 @@ def main():
             begin = time.time()
             crossFold(dataSet, k, foldSize)
             end = time.time()
-            print("tempo: " + str(end - begin) + "\n")
+            timePerDataSet += end - begin
+            print("tempo: %.2f\n" % (end - begin))
+        totalTime += timePerDataSet
+        print("Tempo(%s): %.2f" % (dataSets[i],timePerDataSet))
         print("----------------------------------------------------------------------\n")
+        timePerDataSet = 0
+
+    print("Tempo total = %.2f" % (totalTime))
+    
+        
     
 
 main()

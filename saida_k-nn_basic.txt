@@ -1,0 +1,91 @@
+DataSet 1:
+
+K = 1
+Accuracy: 84.49%
+
+tempo: 3.90
+
+K = 3
+Accuracy: 87.96%
+
+tempo: 3.71
+
+K = 5
+Accuracy: 89.39%
+
+tempo: 3.70
+
+K = 7
+Accuracy: 89.80%
+
+tempo: 3.75
+
+K = 9
+Accuracy: 90.00%
+
+tempo: 3.72
+
+K = 11
+Accuracy: 90.00%
+
+tempo: 3.72
+
+K = 13
+Accuracy: 90.00%
+
+tempo: 4.05
+
+K = 15
+Accuracy: 90.00%
+
+tempo: 3.80
+
+Tempo(./Datasets/CM1_software_defect_prediction.csv): 30.34
+----------------------------------------------------------------------
+
+DataSet 2:
+
+K = 1
+Accuracy: 78.27%
+
+tempo: 4.53
+
+K = 3
+Accuracy: 79.23%
+
+tempo: 4.50
+
+K = 5
+Accuracy: 81.35%
+
+tempo: 4.49
+
+K = 7
+Accuracy: 80.96%
+
+tempo: 4.52
+
+K = 9
+Accuracy: 80.58%
+
+tempo: 4.67
+
+K = 11
+Accuracy: 81.73%
+
+tempo: 4.51
+
+K = 13
+Accuracy: 81.54%
+
+tempo: 4.50
+
+K = 15
+Accuracy: 81.54%
+
+tempo: 4.60
+
+Tempo(./Datasets/KC2_software_defect_prediction.csv): 36.31
+----------------------------------------------------------------------
+
+Tempo total = 66.65
