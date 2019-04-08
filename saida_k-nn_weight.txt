@@ -1,0 +1,91 @@
+DataSet 1:
+
+K = 1
+Accuracy: 84.49%
+
+tempo: 3.6689229011535645
+
+K = 3
+Accuracy: 87.76%
+
+tempo: 3.7478389739990234
+
+K = 5
+Accuracy: 88.98%
+
+tempo: 3.7179617881774902
+
+K = 7
+Accuracy: 89.39%
+
+tempo: 3.7120089530944824
+
+K = 9
+Accuracy: 89.59%
+
+tempo: 3.842271089553833
+
+K = 11
+Accuracy: 89.80%
+
+tempo: 3.709895133972168
+
+K = 13
+Accuracy: 89.80%
+
+tempo: 3.716948986053467
+
+K = 15
+Accuracy: 89.80%
+
+tempo: 3.7539870738983154
+
+Tempo(./Datasets/CM1_software_defect_prediction.csv): 29.87
+----------------------------------------------------------------------
+
+DataSet 2:
+
+K = 1
+Accuracy: 78.27%
+
+tempo: 4.536045789718628
+
+K = 3
+Accuracy: 79.23%
+
+tempo: 4.483350038528442
+
+K = 5
+Accuracy: 81.54%
+
+tempo: 4.494858980178833
+
+K = 7
+Accuracy: 80.96%
+
+tempo: 4.486086130142212
+
+K = 9
+Accuracy: 80.19%
+
+tempo: 4.508975028991699
+
+K = 11
+Accuracy: 80.96%
+
+tempo: 4.59140419960022
+
+K = 13
+Accuracy: 81.35%
+
+tempo: 4.52878999710083
+
+K = 15
+Accuracy: 81.35%
+
+tempo: 4.507716178894043
+
+Tempo(./Datasets/KC2_software_defect_prediction.csv): 36.14
+----------------------------------------------------------------------
+
+Tempo total = 66.01
