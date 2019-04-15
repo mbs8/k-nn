@@ -108,6 +108,7 @@ def crossFold(dataSet, k, foldSize):
             for trainInstance in trainingSet:
                 testInstance.insertDistance((testInstance.euclideanDistance(trainInstance, minArg, maxArg)), trainInstance)
                 if (testInstance.distancesToInstances[0] == 0):
+                    hit += 1
                     break
             if testInstance.classify(k):
                 hit += 1

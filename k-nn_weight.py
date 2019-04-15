@@ -2,8 +2,6 @@ import csv
 import math
 import time
 
-
-
 class Instance:
     def __init__(self, id, params, classification):
         self.id = id
@@ -108,6 +106,7 @@ def crossFold(dataSet, k, foldSize):
             for trainInstance in trainingSet:
                 testInstance.insertDistance((testInstance.euclideanDistance(trainInstance, minArg, maxArg)), trainInstance)
                 if (testInstance.distancesToInstances[0] == 0):
+                    hit += 1
                     break
             if testInstance.classify(k):
                 hit += 1
@@ -137,7 +136,7 @@ def main():
             crossFold(dataSet, k, foldSize)
             end = time.time()
             timePerDataSet += end - begin
-            print("tempo: " + str(end - begin) + "\n")
+            print("tempo: %.2f\n" %(end - begin))
         totalTime += timePerDataSet
         print("Tempo(%s): %.2f" % (dataSets[i],timePerDataSet))
         print("----------------------------------------------------------------------\n")
