@@ -2,8 +2,6 @@ import csv
 import math
 import time
 
-#nome
-
 
 class Instance:
     def __init__(self, id, params, classification):
